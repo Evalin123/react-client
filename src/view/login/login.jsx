@@ -83,6 +83,7 @@ class Login extends Component {
                 </Grid>
               </Grid>
               <Button
+                className="submit"
                 onClick={() => { this.logIn(this.state.user) }}
                 color="primary"
                 variant="contained"

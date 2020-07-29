@@ -1,4 +1,6 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
+import clsx from 'clsx';
+
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,12 +11,13 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
-import HomeIcon from '@material-ui/icons/Home';
-import { Button } from '@material-ui/core';
+import List from '@material-ui/core/List';
+
+import { UserItems, PostItems } from '../sidebar/sidebar';
 
 const styles = (theme) => ({
   root: {
-    height: "70px",
+    height: "64px",
     flexGrow: "1",
   },
 
@@ -24,6 +27,26 @@ const styles = (theme) => ({
 
   menuButton: {
     marginRight: "16px",
+  },
+
+  appBar: {
+    width: "100%"
+  },
+
+  appBarShift: {
+    marginLeft: "240px",
+    width: `calc(100% - 240px)`,
+  },
+
+  drawerPaper: {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    height: "100vh",
+    width: "240px",
+  },
+
+  drawerPaperClose: {
+    overflowX: 'hidden',
   },
 });
 
@@ -37,17 +60,17 @@ class Header extends Component {
   }
 
   handleDrawerOpen() {
-    this.setState({open: true});
+    this.setState({ open: true });
   };
   handleDrawerClose() {
-    this.setState({open: false});
+    this.setState({ open: false });
   };
   render() {
     const { classes } = this.props;
-    
+
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" className={clsx(classes.appBar, false && classes.appBarShift)}>
           <Toolbar>
             <IconButton
               className={classes.menuButton}
@@ -61,14 +84,17 @@ class Header extends Component {
             <Typography className={classes.title} variant="h6">
               Home
             </Typography>
-            <IconButton color="inherit">
+            <IconButton color="inherit" button component="a" href="http://localhost:3000/login">
               <AccountCircleIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer
-          title="Menu"
-          closable={false}
+          classes={{
+            paper: clsx(classes.drawerPaper, true && classes.drawerPaperClose),
+          }}
+          variant="persistent"
+          anchor="left"
           open={this.state.open}
           key='left'
         >
@@ -78,27 +104,13 @@ class Header extends Component {
             </IconButton>
           </div>
           <Divider />
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="home"
-          >
-            <HomeIcon />
-            Home
-          </IconButton>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="about"
-          >
-            <HomeIcon />
-            About
-          </IconButton>
+          <List>{UserItems}</List>
+          <Divider />
+          <List>{PostItems}</List>
         </Drawer>
       </div>
     )
   }
 }
-
 
 export default withStyles(styles, { withTheme: true })(Header);

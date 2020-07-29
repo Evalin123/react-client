@@ -118,6 +118,7 @@ class Register extends Component {
               </Grid>
             </Grid>
             <Button
+              className="submit"
               onClick={() => { this.creatAccount(this.state.user) }}
               color="primary"
               variant="contained"

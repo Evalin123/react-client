@@ -129,6 +129,7 @@ class EditUser extends Component {
               </Grid>
             </Grid>
             <Button
+              className="submit"
               onClick={() => { this.editAccount(this.state.user) }}
               color="primary"
               variant="contained"
