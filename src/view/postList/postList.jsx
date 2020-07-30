@@ -10,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableContainer from '@material-ui/core/TableContainer';
 
 import axios from '../../utils/axios';
+import ListComponent from '../listComponent/listComponent';
 
 const styles = (theme) => ({
   paper: {
@@ -21,9 +22,9 @@ const styles = (theme) => ({
     width: `calc(100% - 480px)`,
     marginLeft: "240px"
   },
-  
+
   submit: {
-    margin: theme.spacing(0,1),
+    margin: theme.spacing(0, 1),
   }
 })
 
@@ -42,20 +43,6 @@ class PostList extends Component {
       })
   }
 
-  editPost(postId) {
-    axios.get("http://localhost:5000/api/posts/" + postId)
-    .then(response => {
-      this.props.history.push('/editpost/' + response.data._id);
-    })
-  }
-
-  deletePost(postId) {
-    axios.delete("http://localhost:5000/api/posts/delete/" + postId)
-    .then(response => {
-      console.log(response);
-    })
-  }
-
   render() {
     const { classes } = this.props;
 
@@ -69,29 +56,14 @@ class PostList extends Component {
           </TableHead>
           <TableBody>
             {this.state.postList.map((post, index) => (
-              <TableRow key={index} hover>
-                <TableCell>{index}</TableCell>
-                <TableCell>{post._id}</TableCell>
-                <TableCell>{post.title}</TableCell>
-                <TableCell>
-                  <Button
-                    onClick={() => { this.editPost(post._id) }}
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                  >
-                    編輯
-                  </Button>
-                  <Button
-                    onClick={() => { this.deletePost(post._id) }}
-                    variant="contained"
-                    color="secondary"
-                    className={classes.submit}
-                  >
-                    刪除
-                  </Button>
-                </TableCell> 
-              </TableRow>
+              <ListComponent 
+                key={index} 
+                index={index} 
+                id={post._id} 
+                title={post.title} 
+                content={post.content}
+              >
+              </ListComponent>
             ))}
           </TableBody>
         </Table>
