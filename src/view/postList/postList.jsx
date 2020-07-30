@@ -43,6 +43,20 @@ class PostList extends Component {
       })
   }
 
+  editPost(postId) {
+    axios.get("http://localhost:5000/api/posts/" + postId)
+      .then(response => {
+        this.props.history.push('/editpost/' + response.data._id);
+      })
+  }
+
+  deletePost(postId) {
+    axios.delete("http://localhost:5000/api/posts/delete/" + postId)
+      .then(response => {
+        console.log(response);
+      })
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -50,18 +64,22 @@ class PostList extends Component {
       <Paper className={classes.paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
-            <TableCell>序列</TableCell>
-            <TableCell>Id</TableCell>
-            <TableCell>Title</TableCell>
+            <TableRow>
+              <TableCell>序列</TableCell>
+              <TableCell>Id</TableCell>
+              <TableCell>Title</TableCell>
+            </TableRow>
           </TableHead>
           <TableBody>
             {this.state.postList.map((post, index) => (
-              <ListComponent 
-                key={index} 
-                index={index} 
-                id={post._id} 
-                title={post.title} 
+              <ListComponent
+                key={index}
+                index={index}
+                id={post._id}
+                title={post.title}
                 content={post.content}
+                editPost={() => { this.editPost(post._id) }}
+                deletePost={() => { this.deletePost(post._id) }}
               >
               </ListComponent>
             ))}

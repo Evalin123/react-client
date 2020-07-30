@@ -12,19 +12,8 @@ const styles = (theme) => ({
 })
 
 class ListComponent extends Component {
-
-  editPost(postId) {
-    axios.get("http://localhost:5000/api/posts/" + postId)
-      .then(response => {
-        this.props.history.push('/editpost/' + response.data._id);
-      })
-  }
-
-  deletePost(postId) {
-    axios.delete("http://localhost:5000/api/posts/delete/" + postId)
-      .then(response => {
-        console.log(response);
-      })
+  constructor(props) {
+    super(props)
   }
 
   render() {
@@ -37,7 +26,7 @@ class ListComponent extends Component {
         <TableCell>{this.props.title}</TableCell>
         <TableCell>
           <Button
-            onClick={() => { this.editPost(this.props.id) }}
+            onClick={this.props.editPost}
             variant="contained"
             color="primary"
             className={classes.submit}
@@ -45,7 +34,7 @@ class ListComponent extends Component {
             編輯
           </Button>
           <Button
-            onClick={() => { this.deletePost(this.props.id) }}
+            onClick={this.props.deletePost}
             variant="contained"
             color="secondary"
             className={classes.submit}

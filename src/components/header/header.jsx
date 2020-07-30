@@ -84,7 +84,7 @@ class Header extends Component {
             <Typography className={classes.title} variant="h6">
               Home
             </Typography>
-            <IconButton color="inherit" button component="a" href="http://localhost:3000/login">
+            <IconButton color="inherit" component="a" href="http://localhost:3000/login">
               <AccountCircleIcon />
             </IconButton>
           </Toolbar>
