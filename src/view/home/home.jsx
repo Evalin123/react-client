@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 
+import axios from '../../utils/axios';
+
 import About from '../about/about';
 import Contact from '../contact/contact';
 import EditUser from '../editUser/editUser';
