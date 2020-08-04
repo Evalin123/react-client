@@ -30,9 +30,9 @@ class EditUser extends Component {
 
   editAccount(user) {
     axios.post('http://localhost:5000/api/users/edit/' + user._id, user)
-    .then(response => {
-      this.setState({user : response.data})
-    })
+      .then(response => {
+        this.setState({ user: response.data })
+      })
   }
 
   render() {
@@ -48,7 +48,7 @@ class EditUser extends Component {
           </Typography>
           <form className="form">
             <Grid container spacing={2}>
-            <Grid container item xs={12} xm={12}>
+              <Grid container item xs={12} xm={12}>
                 <TextField
                   name="id"
                   id="id"
